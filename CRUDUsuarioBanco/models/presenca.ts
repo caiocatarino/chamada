@@ -40,10 +40,10 @@ export = class Presenca {
 
         await Sql.conectar(async (sql: Sql) => {
             try {
-                await sql.query("insert into aluno (data,id_aluno,id_disciplina) values (?,?,?)", [p.data, p.id_aluno, p.id_disciplina]);
+                await sql.query("insert into presenca (data,id_aluno,id_disciplina) values (?,?,?)", [p.data, p.id_aluno, p.id_disciplina]);
             } catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
-                    res = "A Presença \"" + p.id_presenca + "\" já existe";
+                    res = "A Presença \"" + p.id_disciplina + "\" já existe";
                 else
                     throw e;
             }
@@ -63,7 +63,7 @@ export = class Presenca {
                 res = sql.linhasAfetadas.toString();
             } catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
-                    res = "O Aluno \"" + a.nome_aluno + "\" já existe";
+                    res = "A presença \"" + p.id_presenca + "\" já existe";
                 else
                     throw e;
             }
@@ -76,7 +76,7 @@ export = class Presenca {
         let res: string = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("delete from aluno where id_aluno = " + id);
+            await sql.query("delete from presenca where id_presenca = " + id);
             res = sql.linhasAfetadas.toString();
         });
 
