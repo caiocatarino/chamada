@@ -50,10 +50,10 @@ module.exports = (_a = class Usuario {
                                 token !== row.token)
                                 return;
                             let u = new Usuario();
-                            u.id = 1; //id;
-                            u.login = "Caio"; //row.login as string;
-                            u.nome = "Caio"; //row.nome as string;
-                            u.tipo = 0; //row.tipo as number;
+                            u.id = id;
+                            u.login = row.login;
+                            u.nome = row.nome;
+                            u.tipo = row.tipo;
                             u.cookieStr = cookieStr;
                             u.admin = (u.tipo === Usuario.TipoAdmin);
                             Usuario.cacheUsuarioLogados.set(id, u);
@@ -95,10 +95,10 @@ module.exports = (_a = class Usuario {
                     let [token, cookieStr] = Usuario.gerarTokenCookie(row.id);
                     yield sql.query("update usuario set token = ? where id = " + row.id, [token]);
                     u = new Usuario();
-                    u.id = 1; //row.id;
+                    u.id = row.id;
                     u.login = login;
-                    u.nome = "Caio"; //row.nome as string;
-                    u.tipo = 0; //row.tipo as number;
+                    u.nome = row.nome;
+                    u.tipo = row.tipo;
                     u.cookieStr = cookieStr;
                     u.admin = (u.tipo === Usuario.TipoAdmin);
                     Usuario.cacheUsuarioLogados.set(row.id, u);

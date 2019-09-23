@@ -7,10 +7,8 @@ export = class Presenca {
     public id_disciplina: number;
 
     private static validar(p: Presenca): string {
-        //a.nome_aluno = (a.nome_aluno || "").trim().toUpperCase();
-        //if (a.nome_aluno.length < 3 || a.nome_aluno.length > 50)
-          //  return "Nome inválido";
-        //return null;
+        
+        return null;
     }
 
     public static async listar(): Promise<Presenca[]> {
@@ -23,11 +21,11 @@ export = class Presenca {
         return (lista || []);
     }
 
-    public static async obter(id: number): Promise<Presenca> {
+    public static async obter(id_presenca: number): Promise<Presenca> {
         let lista: Presenca[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select id_presenca, data,id_aluno,id_disciplina from presenca where id_presenca = " + id) as Presenca[];
+            lista = await sql.query("select id_presenca, data,id_aluno,id_disciplina from presenca where id_presenca = " + id_presenca) as Presenca[];
         });
 
         return ((lista && lista[0]) || null);
@@ -72,11 +70,11 @@ export = class Presenca {
         return res;
     }
 
-    public static async excluir(id: number): Promise<string> {
+    public static async excluir(id_presenca: number): Promise<string> {
         let res: string = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("delete from presenca where id_presenca = " + id);
+            await sql.query("delete from presenca where id_presenca = " + id_presenca);
             res = sql.linhasAfetadas.toString();
         });
 

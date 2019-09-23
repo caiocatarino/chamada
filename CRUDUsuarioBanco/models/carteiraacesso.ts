@@ -22,11 +22,11 @@ export = class CarteiraAcesso {
         return (lista || []);
     }
 
-    public static async obter(id: number): Promise<CarteiraAcesso> {
+    public static async obter(id_carteiraacesso: number): Promise<CarteiraAcesso> {
         let lista: CarteiraAcesso[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select id_carteraacesso, validade_carteiraacesso,id_aluno from aluno where id_carteiraacesso = " + id) as CarteiraAcesso[];
+            lista = await sql.query("select id_carteraacesso, validade_carteiraacesso,id_aluno from aluno where id_carteiraacesso = " + id_carteiraacesso) as CarteiraAcesso[];
         });
 
         return ((lista && lista[0]) || null);
@@ -71,11 +71,11 @@ export = class CarteiraAcesso {
         return res;
     }
 
-    public static async excluir(id: number): Promise<string> {
+    public static async excluir(id_carteiraacesso: number): Promise<string> {
         let res: string = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("delete from carteiraaaluno where id_carteiraacesso = " + id);
+            await sql.query("delete from carteiraaaluno where id_carteiraacesso = " + id_carteiraacesso);
             res = sql.linhasAfetadas.toString();
         });
 

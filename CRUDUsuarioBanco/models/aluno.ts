@@ -59,7 +59,7 @@ export = class Aluno {
 
         await Sql.conectar(async (sql: Sql) => {
             try {
-                await sql.query("update aluno set nome_aluno = ?,data_nascimento_aluno =?,id_curso where id_aluno = " + a.id, [a.nome_aluno, a.data_nascimento_aluno, a.id_curso]);
+                await sql.query("update aluno set nome_aluno = ?,data_nascimento_aluno =?,id_curso where id_aluno = " + a.id_curso, [a.nome_aluno, a.data_nascimento_aluno, a.id_curso]);
                 res = sql.linhasAfetadas.toString();
             } catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
@@ -72,11 +72,11 @@ export = class Aluno {
         return res;
     }
 
-    public static async excluir(id: number): Promise<string> {
+    public static async excluir(id_aluno: number): Promise<string> {
         let res: string = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            await sql.query("delete from aluno where id_aluno = " + id);
+            await sql.query("delete from aluno where id_aluno = " + id_aluno);
             res = sql.linhasAfetadas.toString();
         });
 
