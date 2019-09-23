@@ -11,37 +11,37 @@ const express = require("express");
 const wrap = require("express-async-error-wrapper");
 const jsonRes = require("../../utils/jsonRes");
 const Usuario = require("../../models/usuario");
-const Curso = require("../../models/curso");
+const Professor = require("../../models/professor");
 const router = express.Router();
 router.get("/listar", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
-    res.json(yield Curso.listar());
+    res.json(yield Professor.listar());
 })));
 router.get("/obter", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
-    let id_curso = parseInt(req.query["id_curso"]);
-    res.json(isNaN(id_curso) ? null : yield Curso.obter(id_curso));
+    let id_professor = parseInt(req.query["id_professor"]);
+    res.json(isNaN(id_professor) ? null : yield Professor.obter(id_professor));
 })));
 router.post("/criar", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
-    let u = yield Usuario.cookie(req, res, true);
-    if (!u)
-        return;
-    let c = req.body;
-    jsonRes(res, 400, c ? yield Curso.criar(c) : "Dados inválidos!");
+    //let u = await Usuario.cookie(req, res, true);
+    //if (!u)
+    //	return;
+    let p = req.body;
+    jsonRes(res, 400, p ? yield Professor.criar(p) : "Dados inválidos!");
 })));
 router.post("/alterar", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     let u = yield Usuario.cookie(req, res, true);
     if (!u)
         return;
-    let c = req.body;
-    if (c)
-        c.id_curso = parseInt(req.body.id_curso);
-    jsonRes(res, 400, (c && !isNaN(c.id_curso)) ? yield Curso.alterar(c) : "Dados inválidos!");
+    let p = req.body;
+    if (p)
+        p.id_professor = parseInt(req.body.id_professor);
+    jsonRes(res, 400, (p && !isNaN(p.id_professor)) ? yield Professor.alterar(p) : "Dados inválidos!");
 })));
 router.get("/excluir", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     let u = yield Usuario.cookie(req, res, true);
     if (!u)
         return;
-    let id_curso = parseInt(req.query["id_curso"]);
-    jsonRes(res, 400, isNaN(id_curso) ? "Dados inválidos!" : yield Curso.excluir(id_curso));
+    let id_professor = parseInt(req.query["id_professor"]);
+    jsonRes(res, 400, isNaN(id_professor) ? "Dados inválidos!" : yield Professor.excluir(id_professor));
 })));
 module.exports = router;
-//# sourceMappingURL=curso.js.map
+//# sourceMappingURL=professor.js.map

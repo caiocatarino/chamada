@@ -91,11 +91,13 @@ app.use((req: express.Request, res: express.Response, next: NextFunction) => {
 app.use("/", require("./routes/home"));
 app.use("/curso", require("./routes/curso"));
 app.use("/usuario", require("./routes/usuario"));
-app.use("/contato", require("./routes/contato"));
+app.use("/professor", require("./routes/professor"));
+app.use("/disciplina", require("./routes/disciplina"));
 // API
 app.use("/api/curso", require("./routes/api/curso"));
 app.use("/api/usuario", require("./routes/api/usuario"));
-app.use("/api/contato", require("./routes/api/contato"));
+app.use("/api/disciplina", require("./routes/api/disciplina"));
+app.use("/api/professor", require("./routes/api/professor"));
 
 // Depois de registrados todos os caminhos das rotas e seus
 // tratadores, registramos os tratadores que serão chamados

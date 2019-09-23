@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const express = require("express");
 const wrap = require("express-async-error-wrapper");
 const Usuario = require("../models/usuario");
-const Curso = require("../models/curso");
+const Professor = require("../models/professor");
 const router = express.Router();
 router.all("/criar", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     let u = yield Usuario.cookie(req);
@@ -18,7 +18,7 @@ router.all("/criar", wrap((req, res) => __awaiter(this, void 0, void 0, function
         res.redirect("/acesso");
     }
     else {
-        res.render("curso/alterar", { titulo: "Criar Curso", item: null });
+        res.render("professor/alterar", { titulo: "Criar Professor", usuario: u, item: null });
     }
 })));
 router.all("/alterar", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -27,12 +27,12 @@ router.all("/alterar", wrap((req, res) => __awaiter(this, void 0, void 0, functi
         res.redirect("/acesso");
     }
     else {
-        let id_curso = parseInt(req.query["id_curso"]);
+        let id_professor = parseInt(req.query["id_professor"]);
         let item = null;
-        if (isNaN(id_curso) || !(item = yield Curso.obter(id_curso)))
+        if (isNaN(id_professor) || !(item = yield Professor.obter(id_professor)))
             res.render("shared/nao-encontrado", { usuario: u });
         else
-            res.render("curso/alterar", { titulo: "Editar Curso", usuario: u, item: item });
+            res.render("professor/alterar", { titulo: "Editar Professor", usuario: u, item: item });
     }
 })));
 router.get("/listar", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -41,8 +41,8 @@ router.get("/listar", wrap((req, res) => __awaiter(this, void 0, void 0, functio
         res.redirect("/acesso");
     }
     else {
-        res.render("curso/listar", { titulo: "Gerenciar Cursos", lista: JSON.stringify(yield Curso.listar()) });
+        res.render("professor/listar", { titulo: "Gerenciar Professores", usuario: u, lista: JSON.stringify(yield Professor.listar()) });
     }
 })));
 module.exports = router;
-//# sourceMappingURL=curso.js.map
+//# sourceMappingURL=professor.js.map

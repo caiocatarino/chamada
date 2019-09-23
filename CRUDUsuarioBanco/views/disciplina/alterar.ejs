@@ -1,0 +1,121 @@
+﻿
+<div class="row">
+	<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+		<form id="form" class="panel panel-default" action="#">
+			<div class="panel-heading">Informações Básicas da Disciplina</div>
+			<div class="panel-body no-bottom">
+				<input type="hidden" id="id_disciplina" name="id_disciplina" value="<%=(item ? item.id_disciplina : 0) %>" />
+				<div class="form-group">
+					<label for="nome_disciplina">Nome</label>
+					<input id="nome_disciplina" name="nome_disciplina" maxlength="50" class="form-control upper" type="text" spellcheck="false" value="<%=(item ? item.nome_disciplina : '') %>" />
+				</div>
+				<div class="form-group">
+					<label for="carga_horaria_disciplina">Carga horária da Disciplina</label>
+					<input id="carga_horaria_disciplina" name="carga_horaria_disciplina" maxlength="50" class="form-control upper" type="number" spellcheck="false" value="<%=(item ? item.carga_horaria_disciplina : '') %>" />
+				</div>
+				<div class="form-group">
+					<label for="semestre_materia">Semestre</label>
+					<input id="semestre_materia" name="semestre_materia" maxlength="50" class="form-control upper" type="number" spellcheck="false" value="<%=(item ? item.semestre_materia : '') %>" />
+				</div>
+				<div class="form-group">
+					<label for="ano_disciplina">Ano da Disciplina</label>
+					<input id="ano_disciplina" name="ano_disciplina" maxlength="50" class="form-control upper" type="number" spellcheck="false" value="<%=(item ? item.ano_disciplina : '') %>" />
+				</div>	
+				<div class="form-group">
+					<label for="presenca_aberta">Presença</label>
+					<input id="presenca_aberta" name="presenca_aberta" maxlength="50" class="form-control upper" type="number" spellcheck="false" value="<%=(item ? item.ano_disciplina : '') %>" />
+				</div>
+				<div class="form-group">
+					<label for="presenca_aberta">Presença</label>
+					<input id="presenca_aberta" name="presenca_aberta" maxlength="50" class="form-control upper" type="number" spellcheck="false" value="<%=(item ? item.ano_disciplina : '') %>" />
+				</div>
+				<div class="form-group">
+					<label for="id_professor">Professor</label>
+					<select id="id_professor" name="id_professor" class="form-control" size="1">
+					  <option value="">SELECIONE...</option>
+					   <% for (var i = 0; i < professor.length; i++) { %>
+					   <option value="<%=professor[i].id_professor %>" <%=(item && item.professor == professor[i].id_professor ? 'selected="selected"' : '')%>><%=professor[i].nome_professor %></option>
+					   <% } %>
+					  </select>
+				  </div>
+				  <div class="form-group">
+					<label for="id_curso">Curso</label>
+					<select id="id_curso" name="id_curso" class="form-control" size="1">
+					  <option value="">SELECIONE...</option>
+					   <% for (var i = 0; i < curso.length; i++) { %>
+					   <option value="<%=curso[i].id_curso %>" <%=(item && item.id_curso == curso[i].id_curso ? 'selected="selected"' : '')%>><%=curso[i].nome_curso %></option>
+					   <% } %>
+					  </select>
+				  </div>
+				
+			</div>
+			<div class="panel-footer">
+				<input value="<%=(item ? 'Salvar Alterações' : 'Criar Disciplina') %>" class="btn btn-primary btn-lg btn-block" type="submit" />
+			</div>
+
+		</form>
+	</div>
+</div>
+
+<%- contentFor("scripts") %>
+<script type="text/javascript">
+	//<![CDATA[
+	"use strict";
+
+	$("#form").validate({
+		rules: {
+			nome_disciplina: {
+				required: true,
+				minlength: 3,
+				maxlength: 50
+			},
+			carga_horaria_disciplina: {
+				required: true,
+				minlength: 4,
+				maxlength: 50
+			},
+			semestre_materia: {
+				required: true,
+				minlength: 1,
+				maxlength: 50
+			},
+			ano_disciplina: {
+				required: true,
+				minlength: 4,
+				maxlength: 50
+			},
+			
+		},
+
+		submitHandler: function (form) {
+			if (JsonWebApi.active)
+				return;
+
+			Notification.wait();
+
+			//<% if (item)  { %>
+
+			JsonWebApi.postFormData("/api/disciplina/alterar", form, function (response) {
+				if (response.success)
+					Notification.success("Disciplina alterada com sucesso! \uD83D\uDE04");
+				else
+					Notification.error(response.value, true);
+			});
+
+			//<% } else { %>
+
+			JsonWebApi.postFormData("/api/disciplina/criar", form, function (response) {
+				if (response.success) {
+					form.reset();
+					$("#form").validate().resetForm();
+					Notification.success("Disciplina criada com sucesso! \uD83D\uDE04");
+				} else {
+					Notification.error(response.value, true);
+				}
+			});
+
+			//<% } %>
+		}
+	});
+	//]]>
+</script>

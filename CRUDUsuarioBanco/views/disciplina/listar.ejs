@@ -38,11 +38,12 @@
 		order: [[0, "asc"]],
 		deferRender: true,
 		columns: [
-			{ title: "Nome", render: encode, data: "nome" },
-			{ title: "Endereco", "class": "col-25", render: encode, data: "endereco" },
-			{ title: "Email", "class": "col-25", render: encode, data: "email" },
-			{ title: "Peso", "class": "col-15", data: "peso" },
-			{ title: "", "class": "col-min", searchable: false, orderable: false, data: "id", render: function (v, type, row) { return "<a target=\"_blank\" title=\"Editar\" href=\"/contato/alterar?id=" + row.id + "\" class=\"btn btn-outline btn-primary\"><i class=\"fa fa-nomargin fa-edit\"></i></a> <button title=\"Excluir\" type=\"button\" data-excluir=\"1\" class=\"btn btn-outline btn-danger\"><i class=\"fa fa-nomargin fa-times\"></i></button>"; } },
+			{ title: "Nome", render: encode, data: "nome_disciplina" },
+			{ title: "Carga Horária", "class": "col-25", render: encode, data: "carga_horaria_disciplina" },
+			{ title: "Semestre", "class": "col-25", render: encode, data: "semestre_materia" },
+			{ title: "Ano", "class": "col-15", data: "ano_disciplina" },
+			{ title: "Presença", "class": "col-15", data: "presenca_aberta" },
+			{ title: "", "class": "col-min", searchable: false, orderable: false, data: "id_disciplina", render: function (v, type, row) { return "<a target=\"_blank\" title=\"Editar\" href=\"/disciplina/alterar?id=" + row.id_disciplina + "\" class=\"btn btn-outline btn-primary\"><i class=\"fa fa-nomargin fa-edit\"></i></a> <button title=\"Excluir\" type=\"button\" data-excluir=\"1\" class=\"btn btn-outline btn-danger\"><i class=\"fa fa-nomargin fa-times\"></i></button>"; } },
 		],
 		data: <%- lista %>
 	});
@@ -53,10 +54,10 @@
 		if (JsonWebApi.active)
 			return;
 
-		var contato = tabela.row(trClicada = this.parentNode.parentNode).data();
+		var professor = tabela.row(trClicada = this.parentNode.parentNode).data();
 
 		if (this.getAttribute("data-excluir")) {
-			$("#lblNome").text(contato.nome);
+			$("#lblNome").text(professor.nome);
 
 			$("#modalExcluir").modal({
 				backdrop: "static",
@@ -71,19 +72,19 @@
 
 		$("#modalExcluir").modal("hide");
 
-		var contato = tabela.row(trClicada).data();
+		var disciplina = tabela.row(trClicada).data();
 
 		Notification.wait();
 
-		JsonWebApi.get("/api/contato/excluir", function (response) {
+		JsonWebApi.get("/api/disciplina/excluir", function (response) {
 			if (response.success) {
-				Notification.success("Contato excluído com sucesso! \uD83D\uDE04");
+				Notification.success("Disciplina excluída com sucesso! \uD83D\uDE04");
 				tabela.row(trClicada).remove().draw();
 			} else {
 				Notification.error(response.value, true);
 			}
 			trClicada = null;
-		}, "id", contato.id);
+		}, "id_disciplina", disciplina.id);
 	}
 
 	//]]>

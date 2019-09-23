@@ -23,7 +23,10 @@ module.exports = class Disciplina {
         return __awaiter(this, void 0, void 0, function* () {
             let lista = null;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                lista = (yield sql.query("select d.id_disciplina, d.nome_disciplina, d.carga_horaria_disciplina, d.semestre_materia, d.ano_disciplina, d.presenca_aberta, p.id_professor, p.nome_professor, c.id_curso, c.nome_curso from disciplina d, professor f, curso c where d.id_disciplina = p.professor  order by nome asc"));
+                lista = (yield sql.query("select d.id_disciplina, d.nome_disciplina, d.carga_horaria_disciplina, d.semestre_materia, " +
+                    +" d.ano_disciplina, d.presenca_aberta, p.id_professor, p.nome_professor, " +
+                    +" c.id_curso, c.nome_curso from disciplina d, professor p, curso c where d.id_professor = p.id_professor " +
+                    +" and d.id_curso = c.id_curso order by d.nome_disciplina asc "));
             }));
             return (lista || []);
         });
@@ -32,7 +35,10 @@ module.exports = class Disciplina {
         return __awaiter(this, void 0, void 0, function* () {
             let lista = null;
             yield Sql.conectar((sql) => __awaiter(this, void 0, void 0, function* () {
-                lista = (yield sql.query("select id, nome, endereco, email, peso from contato where id = ?", [id_disciplina]));
+                lista = (yield sql.query("select d.id_disciplina, d.nome_disciplina, d.carga_horaria_disciplina, d.semestre_materia, " +
+                    +" d.ano_disciplina, d.presenca_aberta, p.id_professor, p.nome_professor, " +
+                    +" c.id_curso, c.nome_curso from disciplina d, professor p, curso c where d.id_professor = p.id_professor " +
+                    +" and d.id_curso = c.id_curso and id_disciplina = ?  ", [id_disciplina]));
             }));
             if (lista && lista[0]) {
                 return lista[0];

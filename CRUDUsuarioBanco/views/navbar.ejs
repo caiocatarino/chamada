@@ -36,7 +36,7 @@
 					<a href="/"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
 				</li>
 
-				<% if (usuario.admin) { %>
+				
 
 				<li>
 					<a href="#"><i class="fa fa-pencil fa-fw"></i>Cursos<span class="fa arrow"></span></a>
@@ -68,22 +68,36 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#"><i class="fa fa-address-book"></i>Contatos<span class="fa arrow"></span></a>
+					<a href="#"><i class="fa fa-address-book"></i>Professor<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level collapse">
 
 						<li>
-							<a href="/contato/criar"><i class="fa fa-plus fa-fw"></i>Criar</a>
+							<a href="/professor/criar"><i class="fa fa-plus fa-fw"></i>Criar</a>
 						</li>
 
 						<li>
-							<a href="/contato/listar"><i class="fa fa-tasks fa-fw"></i>Gerenciar</a>
+							<a href="/professor/listar"><i class="fa fa-tasks fa-fw"></i>Gerenciar</a>
+						</li>
+
+					</ul>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-address-book"></i>Disciplina<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level collapse">
+
+						<li>
+							<a href="/disciplina/criar"><i class="fa fa-plus fa-fw"></i>Criar</a>
+						</li>
+
+						<li>
+							<a href="/disciplina/listar"><i class="fa fa-tasks fa-fw"></i>Gerenciar</a>
 						</li>
 
 					</ul>
 				</li>
 				
 
-				<% } %>
+				
 
 			</ul>
 		</div>

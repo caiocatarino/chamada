@@ -8,7 +8,7 @@ export = class Sql {
 		port: 3306,
 		user: "root",
 		password: "root",
-		database: "banco"
+		database: "mydb"
 	});
 
 	private connection;

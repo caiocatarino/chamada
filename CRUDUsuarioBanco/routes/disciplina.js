@@ -10,16 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const express = require("express");
 const wrap = require("express-async-error-wrapper");
 const Usuario = require("../models/usuario");
-const Contato = require("../models/contato");
+const Disciplina = require("../models/disciplina");
 const router = express.Router();
 router.all("/criar", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
-    let u = yield Usuario.cookie(req);
-    if (!u || !u.admin) {
-        res.redirect("/acesso");
-    }
-    else {
-        res.render("contato/alterar", { titulo: "Criar Contato", usuario: u, item: null });
-    }
+    //let u = await Usuario.cookie(req);
+    //if (!u || !u.admin) {
+    //	res.redirect("/acesso");
+    //} else {
+    res.render("disciplina/alterar", { titulo: "Criar Disciplina", item: null });
+    //}
 })));
 router.all("/alterar", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
     let u = yield Usuario.cookie(req);
@@ -27,12 +26,12 @@ router.all("/alterar", wrap((req, res) => __awaiter(this, void 0, void 0, functi
         res.redirect("/acesso");
     }
     else {
-        let id = parseInt(req.query["id"]);
+        let id_disciplina = parseInt(req.query["id_disciplina"]);
         let item = null;
-        if (isNaN(id) || !(item = yield Contato.obter(id)))
+        if (isNaN(id_disciplina) || !(item = yield Disciplina.obter(id_disciplina)))
             res.render("shared/nao-encontrado", { usuario: u });
         else
-            res.render("contato/alterar", { titulo: "Editar Contato", usuario: u, item: item });
+            res.render("disciplina/alterar", { titulo: "Editar Disciplina", usuario: u, item: item });
     }
 })));
 router.get("/listar", wrap((req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -41,8 +40,8 @@ router.get("/listar", wrap((req, res) => __awaiter(this, void 0, void 0, functio
         res.redirect("/acesso");
     }
     else {
-        res.render("contato/listar", { titulo: "Gerenciar Contatos", usuario: u, lista: JSON.stringify(yield Contato.listar()) });
+        res.render("disciplina/listar", { titulo: "Gerenciar Disciplinas", usuario: u, lista: JSON.stringify(yield Disciplina.listar()) });
     }
 })));
 module.exports = router;
-//# sourceMappingURL=contato.js.map
+//# sourceMappingURL=disciplina.js.map

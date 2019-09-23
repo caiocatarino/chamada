@@ -2,43 +2,43 @@
 import wrap = require("express-async-error-wrapper");
 import jsonRes = require("../../utils/jsonRes");
 import Usuario = require("../../models/usuario");
-import Contato = require("../../models/contato");
+import Disciplina = require("../../models/disciplina");
 
 const router = express.Router();
 
 router.get("/listar", wrap(async (req: express.Request, res: express.Response) => {
-	res.json(await Contato.listar());
+	res.json(await Disciplina.listar());
 }));
 
 router.get("/obter", wrap(async (req: express.Request, res: express.Response) => {
-	let id = parseInt(req.query["id"]);
-	res.json(isNaN(id) ? null : await Contato.obter(id));
+	let id_disciplina = parseInt(req.query["id_disciplina"]);
+	res.json(isNaN(id_disciplina) ? null : await Disciplina.obter(id_disciplina));
 }));
 
 router.post("/criar", wrap(async (req: express.Request, res: express.Response) => {
 	//let u = await Usuario.cookie(req, res, true);
 	//if (!u)
 	//	return;
-	let c = req.body as Contato;
-	jsonRes(res, 400, c ? await Contato.criar(c) : "Dados inválidos!");
+	let d = req.body as Disciplina;
+	jsonRes(res, 400, d ? await Disciplina.criar(d) : "Dados inválidos!");
 }));
 
 router.post("/alterar", wrap(async (req: express.Request, res: express.Response) => {
 	let u = await Usuario.cookie(req, res, true);
 	if (!u)
 		return;
-	let c = req.body as Contato;
-	if (c)
-		c.id = parseInt(req.body.id);
-	jsonRes(res, 400, (c && !isNaN(c.id)) ? await Contato.alterar(c) : "Dados inválidos!");
+	let d = req.body as Disciplina;
+	if (d)
+		d.id_disciplina = parseInt(req.body.id_disciplina);
+	jsonRes(res, 400, (d && !isNaN(d.id_curso)) ? await Disciplina.alterar(d) : "Dados inválidos!");
 }));
 
 router.get("/excluir", wrap(async (req: express.Request, res: express.Response) => {
 	let u = await Usuario.cookie(req, res, true);
 	if (!u)
 		return;
-	let id = parseInt(req.query["id"]);
-	jsonRes(res, 400, isNaN(id) ? "Dados inválidos!" : await Contato.excluir(id));
+	let id_disciplina = parseInt(req.query["id_disciplina"]);
+	jsonRes(res, 400, isNaN(id_disciplina) ? "Dados inválidos!" : await Disciplina.excluir(id_disciplina));
 }));
 
 export = router;
