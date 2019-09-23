@@ -27,10 +27,7 @@ export = class Disciplina {
 		let lista: Disciplina[] = null;
 
 		await Sql.conectar(async (sql: Sql) => {
-			lista = await sql.query("select d.id_disciplina, d.nome_disciplina, d.carga_horaria_disciplina, d.semestre_materia, "+ 
-			+" d.ano_disciplina, d.presenca_aberta, p.id_professor, p.nome_professor, "+
-			+" c.id_curso, c.nome_curso from disciplina d, professor p, curso c where d.id_professor = p.id_professor "+
-			+" and d.id_curso = c.id_curso order by d.nome_disciplina asc ") as Disciplina[];
+			lista = await sql.query("select id_disciplina, nome_disciplina, carga_horaria_disciplina, semestre_materia, ano_disciplina, presenca_aberta, p.id_professor, nome_professor, c.id_curso, nome_curso from disciplina as d inner join professor as p on p.id_professor = d.id_professor inner join curso as c on c.id_curso = d.id_curso order by nome_disciplina asc") as Disciplina[];
 		});
 
 		return (lista || []);

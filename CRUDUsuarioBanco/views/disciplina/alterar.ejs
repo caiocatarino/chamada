@@ -26,15 +26,11 @@
 					<input id="presenca_aberta" name="presenca_aberta" maxlength="50" class="form-control upper" type="number" spellcheck="false" value="<%=(item ? item.ano_disciplina : '') %>" />
 				</div>
 				<div class="form-group">
-					<label for="presenca_aberta">Presença</label>
-					<input id="presenca_aberta" name="presenca_aberta" maxlength="50" class="form-control upper" type="number" spellcheck="false" value="<%=(item ? item.ano_disciplina : '') %>" />
-				</div>
-				<div class="form-group">
 					<label for="id_professor">Professor</label>
 					<select id="id_professor" name="id_professor" class="form-control" size="1">
 					  <option value="">SELECIONE...</option>
-					   <% for (var i = 0; i < professor.length; i++) { %>
-					   <option value="<%=professor[i].id_professor %>" <%=(item && item.professor == professor[i].id_professor ? 'selected="selected"' : '')%>><%=professor[i].nome_professor %></option>
+					  <% for (var i = 0; i < professor.length; i++) { %>
+					   <option value="<%=professor[i].id_professor %>" <%=(item && item.id_professor == professor[i].id_professor ? 'selected="selected"' : '')%>><%=professor[i].nome_professor %></option>
 					   <% } %>
 					  </select>
 				  </div>
@@ -42,7 +38,7 @@
 					<label for="id_curso">Curso</label>
 					<select id="id_curso" name="id_curso" class="form-control" size="1">
 					  <option value="">SELECIONE...</option>
-					   <% for (var i = 0; i < curso.length; i++) { %>
+					  <% for (var i = 0; i < curso.length; i++) { %>
 					   <option value="<%=curso[i].id_curso %>" <%=(item && item.id_curso == curso[i].id_curso ? 'selected="selected"' : '')%>><%=curso[i].nome_curso %></option>
 					   <% } %>
 					  </select>

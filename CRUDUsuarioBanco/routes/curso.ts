@@ -10,7 +10,7 @@ router.all("/criar", wrap(async (req: express.Request, res: express.Response) =>
 	if (!u || !u.admin) {
 		res.redirect("/acesso");
 	} else {
-		res.render("curso/alterar", { titulo: "Criar Curso", item: null });
+		res.render("curso/alterar", { titulo: "Criar Curso", item: null ,usuario: u});
 	}
 }));
 
@@ -33,7 +33,7 @@ router.get("/listar", wrap(async (req: express.Request, res: express.Response) =
 	if (!u || !u.admin) {
 		res.redirect("/acesso");
 	} else {
-		res.render("curso/listar", { titulo: "Gerenciar Cursos", lista: JSON.stringify(await Curso.listar()) });
+		res.render("curso/listar", { titulo: "Gerenciar Cursos", usuario: u, lista: JSON.stringify(await Curso.listar()) });
 	}
 }));
 
