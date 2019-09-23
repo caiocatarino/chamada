@@ -93,10 +93,12 @@ app.use("/curso", require("./routes/curso"));
 app.use("/usuario", require("./routes/usuario"));
 app.use("/professor", require("./routes/professor"));
 app.use("/disciplina", require("./routes/disciplina"));
+app.use("/aluno", require("./routes/aluno"));
 // API
 app.use("/api/curso", require("./routes/api/curso"));
 app.use("/api/usuario", require("./routes/api/usuario"));
 app.use("/api/disciplina", require("./routes/api/disciplina"));
+app.use("/api/professor", require("./routes/api/professor"));
 app.use("/api/professor", require("./routes/api/professor"));
 
 // Depois de registrados todos os caminhos das rotas e seus

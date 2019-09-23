@@ -17,7 +17,7 @@ export = class Aluno {
         let lista: Aluno[] = null;
 
         await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select id_aluno, nome_aluno,data_nascimento_aluno from aluno where id_curso=id_curso order by nome asc") as Aluno[];
+            lista = await sql.query("select id_aluno, nome_aluno,data_nascimento_aluno, c.nome_curso from aluno where id_curso=id_curso order by nome asc") as Aluno[];
         });
 
         return (lista || []);
