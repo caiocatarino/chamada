@@ -11,14 +11,14 @@ module.exports = class CarteiraAcesso {
     static async listar() {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select date_format(c.validade_carteiraAcesso,'%d/%m/%Y' ) validade_carteiraAcesso, a.nome_aluno, a.id_curso from carteiraAcesso c, aluno a where c.id_aluno = a.id_aluno");
+            lista = await sql.query("select date_format(c.validade_carteiraAcesso,'%d/%m/%Y' ) validade_carteiraAcesso, a.nome_aluno, a.id_aluno, c.id_carteiraAcesso from carteiraAcesso c, aluno a where c.id_aluno = a.id_aluno");
         });
         return (lista || []);
     }
     static async obter(id_carteiraAcesso) {
         let lista = null;
         await Sql.conectar(async (sql) => {
-            lista = await sql.query("select date_format(c.validade_carteiraAcesso,'%d/%m/%Y' ) validade_carteiraAcesso, a.id_aluno, a.nome_aluno from carteiraAcesso c, aluno a where c.id_aluno = a.id_aluno and id_carteiraAcesso =   " + id_carteiraAcesso);
+            lista = await sql.query("select date_format(c.validade_carteiraAcesso,'%d/%m/%Y' ) validade_carteiraAcesso, a.id_aluno, a.nome_aluno, c.id_carteiraAcesso from carteiraAcesso c, aluno a where c.id_aluno = a.id_aluno and id_carteiraAcesso =   " + id_carteiraAcesso);
         });
         return ((lista && lista[0]) || null);
     }
