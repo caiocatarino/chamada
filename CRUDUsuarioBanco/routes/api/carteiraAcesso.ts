@@ -41,4 +41,14 @@ router.get("/excluir", wrap(async (req: express.Request, res: express.Response) 
 	jsonRes(res, 400, isNaN(id_carteiraAcesso) ? "Dados inválidos!" : await CarteiraAcesso.excluir(id_carteiraAcesso));
 }));
 
+router.get("/marcar",wrap(async (req: express.Request, res: express.Response) => {
+	let nfc = (req.query["nfc"] as string || "").toUpperCase();
+	if (await CarteiraAcesso.marcar(nfc))
+		res.sendStatus(204);
+	else
+		res.sendStatus(403);
+}));
+
+
+
 export = router;

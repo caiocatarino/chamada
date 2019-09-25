@@ -84,4 +84,22 @@ export = class CarteiraAcesso {
 
 		return res;
 	}
+
+	public static async marcar(nfc: string): Promise<boolean> {
+		let res: boolean = false;
+
+		await Sql.conectar(async (sql: Sql) => {
+			let lista = await sql.query("select a.id_aluno, d.id_disciplina from carteiraAcesso c inner join aluno a on a.id_aluno = c.id_aluno inner join disciplina d on d.id_curso = a.id_curso where c.nfc_carteiraAcesso = ? and d.presenca_aberta = 1", [nfc]);
+			if (!lista || !lista.length) {
+				return;
+			}
+			try {
+				await sql.query("insert into presenca(data, id_aluno, id_disciplina) values (curdate(), ?, ?)", [lista[0].id_aluno, lista[0].id_disciplina]);
+				res = true;
+			} catch (ex) {
+			}
+		});
+
+		return res;
+	}
 }
