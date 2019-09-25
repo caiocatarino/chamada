@@ -1,0 +1,79 @@
+﻿
+<div class="row">
+	<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+		<form id="form" class="panel panel-default" action="#">
+			<div class="panel-heading">Informações Básicas da Presença</div>
+			<div class="panel-body no-bottom">
+				<input type="hidden" id="id_presenca" name="id_presenca" value="<%=(item ? item.id_presenca : 0) %>" />
+				<div class="form-group">
+					<label for="data">Data</label>
+					<input id="data" name="data" maxlength="50" class="form-control upper" type="text" spellcheck="false" value="<%=(item ? item.data : '') %>" />
+				</div>				
+				<div class="form-group">
+					<label for="id_aluno">Aluno</label>
+					<select id="id_aluno" name="id_aluno" class="form-control" size="1">
+					  <option value="">SELECIONE...</option>
+					  <% for (var i = 0; i < aluno.length; i++) { %>
+					   <option value="<%=aluno[i].id_aluno %>" <%=(item && item.id_aluno == aluno[i].id_aluno ? 'selected="selected"' : '')%>><%=aluno[i].nome_aluno %></option>
+					   <% } %>
+					  </select>
+				  </div>
+				  <div class="form-group">
+					<label for="id_disciplina">Disciplina</label>
+					<select id="id_disciplina" name="id_disciplina" class="form-control" size="1">
+					  <option value="">SELECIONE...</option>
+					  <% for (var i = 0; i < disciplina.length; i++) { %>
+					   <option value="<%=disciplina[i].id_disciplina %>" <%=(item && item.id_disciplina == disciplina[i].id_disciplina ? 'selected="selected"' : '')%>><%=disciplina[i].nome_disciplina %></option>
+					   <% } %>
+					  </select>
+				  </div>
+			</div>
+			<div class="panel-footer">
+				<input value="<%=(item ? 'Salvar Alterações' : 'Criar Presença') %>" class="btn btn-primary btn-lg btn-block" type="submit" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<%- contentFor("scripts") %>
+<script type="text/javascript">
+	//<![CDATA[
+	"use strict";
+
+	$("#form").validate({
+		rules: {
+		
+		},
+
+		submitHandler: function (form) {
+			if (JsonWebApi.active)
+				return;
+
+			Notification.wait();
+
+			//<% if (item)  { %>
+
+			JsonWebApi.postFormData("/api/presenca/alterar", form, function (response) {
+				if (response.success)
+					Notification.success("Presença alterada com sucesso! \uD83D\uDE04");
+				else
+					Notification.error(response.value, true);
+			});
+
+			//<% } else { %>
+
+			JsonWebApi.postFormData("/api/presenca/criar", form, function (response) {
+				if (response.success) {
+					form.reset();
+					$("#form").validate().resetForm();
+					Notification.success("Presença criada com sucesso! \uD83D\uDE04");
+				} else {
+					Notification.error(response.value, true);
+				}
+			});
+
+			//<% } %>
+		}
+	});
+	//]]>
+</script>

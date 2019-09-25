@@ -39,7 +39,7 @@
 		deferRender: true,
 		columns: [
 			{ title: "Nome", render: encode, data: "nome_professor" },
-			{ title: "", "class": "col-min", searchable: false, orderable: false, data: "id_professor", render: function (v, type, row) { return "<a target=\"_blank\" title=\"Editar\" href=\"/professor/alterar?id=" + row.id_professor + "\" class=\"btn btn-outline btn-primary\"><i class=\"fa fa-nomargin fa-edit\"></i></a> <button title=\"Excluir\" type=\"button\" data-excluir=\"1\" class=\"btn btn-outline btn-danger\"><i class=\"fa fa-nomargin fa-times\"></i></button>"; } },
+			{ title: "", "class": "col-min", searchable: false, orderable: false, data: "id_professor", render: function (v, type, row) { return "<a target=\"_blank\" title=\"Editar\" href=\"/professor/alterar?id_professor=" + row.id_professor + "\" class=\"btn btn-outline btn-primary\"><i class=\"fa fa-nomargin fa-edit\"></i></a> <button title=\"Excluir\" type=\"button\" data-excluir=\"1\" class=\"btn btn-outline btn-danger\"><i class=\"fa fa-nomargin fa-times\"></i></button>"; } },
 		],
 		data: <%- lista %>
 	});

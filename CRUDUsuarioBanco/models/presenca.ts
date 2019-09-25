@@ -1,83 +1,86 @@
 ﻿import Sql = require("../infra/sql");
-
+import converteData = require("../utils/converteData");
 export = class Presenca {
-    public id_presenca: number;
-    public data: string;
-    public id_aluno: number;
-    public id_disciplina: number;
+	public id_presenca: number;
+	public data: string;
 
-    private static validar(p: Presenca): string {
-        
-        return null;
-    }
+	public id_aluno:number;
+	public id_disciplina:number;
 
-    public static async listar(): Promise<Presenca[]> {
-        let lista: Presenca[] = null;
+	private static validar(p: Presenca): string {
+		p.data = converteData(p.data);
+			if (!p.data)
+				return "Data inválida!"; 
+		return null;
+	}
 
-        await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select id_presenca, data,id_aluno,id_disciplina from aluno where id_curso=id_curso order by nome asc") as Presenca[];
-        });
+	public static async listar(): Promise<Presenca[]> {
+		let lista: Presenca[] = null;
 
-        return (lista || []);
-    }
+		await Sql.conectar(async (sql: Sql) => {
+			lista = await sql.query("select p.id_presenca, date_format(p.data,'%d/%m/%Y' ) data, a.id_aluno, a.nome_aluno, d.id_disciplina,d.nome_disciplina from presenca p, aluno a, disciplina d where p.id_aluno = a.id_aluno and p.id_disciplina = d.id_disciplina ") as Presenca[];
+		});
 
-    public static async obter(id_presenca: number): Promise<Presenca> {
-        let lista: Presenca[] = null;
+		return (lista || []);
+	}
 
-        await Sql.conectar(async (sql: Sql) => {
-            lista = await sql.query("select id_presenca, data,id_aluno,id_disciplina from presenca where id_presenca = " + id_presenca) as Presenca[];
-        });
+	public static async obter(id_presenca: number): Promise<Presenca> {
+		let lista: Presenca[] = null;
 
-        return ((lista && lista[0]) || null);
-    }
+		await Sql.conectar(async (sql: Sql) => {
+			lista = await sql.query("select p.id_presenca, date_format(p.data,'%d/%m/%Y' ) data, a.id_aluno, a.nome_aluno, d.id_disciplina,d.nome_disciplina from presenca p, aluno a, disciplina d where p.id_aluno = a.id_aluno and p.id_disciplina = d.id_disciplina and id_presenca = " + id_presenca) as Presenca[];
+		});
 
-    public static async criar(p: Presenca): Promise<string> {
-        let res: string;
-        if ((res = Presenca.validar(p)))
-            return res;
+		return ((lista && lista[0]) || null);
+	}
 
-        await Sql.conectar(async (sql: Sql) => {
-            try {
-                await sql.query("insert into presenca (data,id_aluno,id_disciplina) values (?,?,?)", [p.data, p.id_aluno, p.id_disciplina]);
-            } catch (e) {
-                if (e.code && e.code === "ER_DUP_ENTRY")
-                    res = "A Presença \"" + p.id_disciplina + "\" já existe";
-                else
-                    throw e;
-            }
-        });
+	public static async criar(p: Presenca): Promise<string> {
+		let res: string;
+		if ((res = Presenca.validar(p)))
+			return res;
 
-        return res;
-    }
+		await Sql.conectar(async (sql: Sql) => {
+			try {
+				await sql.query("insert into presenca (data,id_aluno,id_disciplina) values (?,?,?)", [p.data,p.id_aluno,p.id_disciplina]);
+			} catch (e) {
+				if (e.code && e.code === "ER_DUP_ENTRY")
+					res = "A Presença \"" + p.id_presenca + "\" já existe";
+				else
+					throw e;
+			}
+		});
 
-    public static async alterar(p: Presenca): Promise<string> {
-        let res: string;
-        if ((res = Presenca.validar(p)))
-            return res;
+		return res;
+	}
 
-        await Sql.conectar(async (sql: Sql) => {
-            try {
-                await sql.query("update aluno set nome_aluno = ?,data_nascimento_aluno =?,id_curso where id_aluno = " + a.id, [a.nome_aluno, a.data_nascimento_aluno, a.id_curso]);
-                res = sql.linhasAfetadas.toString();
-            } catch (e) {
-                if (e.code && e.code === "ER_DUP_ENTRY")
-                    res = "A presença \"" + p.id_presenca + "\" já existe";
-                else
-                    throw e;
-            }
-        });
+	public static async alterar(p: Presenca): Promise<string> {
+		let res: string;
+		if ((res = Presenca.validar(p)))
+			return res;
 
-        return res;
-    }
+		await Sql.conectar(async (sql: Sql) => {
+			try {
+				await sql.query("update presenca set data = ?, id_aluno = ?, id_disciplina = ? where id_disciplina = " + p.id_disciplina, [p.data,p.id_aluno,p.id_disciplina]);
+				res = sql.linhasAfetadas.toString();
+			} catch (e) {
+				if (e.code && e.code === "ER_DUP_ENTRY")
+					res = "A presença \"" + p.id_presenca + "\" já existe";
+				else
+					throw e;
+			}
+		});
 
-    public static async excluir(id_presenca: number): Promise<string> {
-        let res: string = null;
+		return res;
+	}
 
-        await Sql.conectar(async (sql: Sql) => {
-            await sql.query("delete from presenca where id_presenca = " + id_presenca);
-            res = sql.linhasAfetadas.toString();
-        });
+	public static async excluir(id_presenca: number): Promise<string> {
+		let res: string = null;
 
-        return res;
-    }
+		await Sql.conectar(async (sql: Sql) => {
+			await sql.query("delete from presenca where id_presenca = " + id_presenca);
+			res = sql.linhasAfetadas.toString();
+		});
+
+		return res;
+	}
 }

@@ -39,11 +39,11 @@
 		deferRender: true,
 		columns: [
 			{ title: "Nome", render: encode, data: "nome_disciplina" },
-			{ title: "Carga Horária", "class": "col-25", render: encode, data: "carga_horaria_disciplina" },
-			{ title: "Semestre", "class": "col-25", render: encode, data: "semestre_materia" },
+			{ title: "Carga Horária", "class": "col-25", data: "carga_horaria_disciplina" },
+			{ title: "Semestre", "class": "col-25", data: "semestre_materia" },
 			{ title: "Ano", "class": "col-15", data: "ano_disciplina" },
 			{ title: "Presença", "class": "col-15", data: "presenca_aberta" },
-			{ title: "", "class": "col-min", searchable: false, orderable: false, data: "id_disciplina", render: function (v, type, row) { return "<a target=\"_blank\" title=\"Editar\" href=\"/disciplina/alterar?id=" + row.id_disciplina + "\" class=\"btn btn-outline btn-primary\"><i class=\"fa fa-nomargin fa-edit\"></i></a> <button title=\"Excluir\" type=\"button\" data-excluir=\"1\" class=\"btn btn-outline btn-danger\"><i class=\"fa fa-nomargin fa-times\"></i></button>"; } },
+			{ title: "", "class": "col-min", searchable: false, orderable: false, data: "id_disciplina", render: function (v, type, row) { return "<a target=\"_blank\" title=\"Editar\" href=\"/disciplina/alterar?id_disciplina=" + row.id_disciplina + "\" class=\"btn btn-outline btn-primary\"><i class=\"fa fa-nomargin fa-edit\"></i></a> <button title=\"Excluir\" type=\"button\" data-excluir=\"1\" class=\"btn btn-outline btn-danger\"><i class=\"fa fa-nomargin fa-times\"></i></button>"; } },
 		],
 		data: <%- lista %>
 	});
@@ -84,7 +84,7 @@
 				Notification.error(response.value, true);
 			}
 			trClicada = null;
-		}, "id_disciplina", disciplina.id);
+		}, "id_disciplina",disciplina.id_disciplina);
 	}
 
 	//]]>

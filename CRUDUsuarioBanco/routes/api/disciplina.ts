@@ -16,9 +16,9 @@ router.get("/obter", wrap(async (req: express.Request, res: express.Response) =>
 }));
 
 router.post("/criar", wrap(async (req: express.Request, res: express.Response) => {
-	//let u = await Usuario.cookie(req, res, true);
-	//if (!u)
-	//	return;
+	let u = await Usuario.cookie(req, res, true);
+	if (!u)
+		return;
 	let d = req.body as Disciplina;
 	jsonRes(res, 400, d ? await Disciplina.criar(d) : "Dados inválidos!");
 }));
