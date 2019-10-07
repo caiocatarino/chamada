@@ -68,7 +68,7 @@ export = class Disciplina {
 			return res;
 
 		await Sql.conectar(async (sql: Sql) => {	
-				await sql.query("update disciplina set nome_disciplina = ?, carga_horaria_disciplina = ?, semestre_materia = ?, ano_disciplina = ?, presenca_aberta = ?, id_professor = ?, id_curso = ? where id_disciplina = ?", [d.nome_disciplina,d.presenca_aberta,d.semestre_materia,d.ano_disciplina,d.presenca_aberta,d.id_professor,d.id_curso]);
+				await sql.query("update disciplina set nome_disciplina = ?, carga_horaria_disciplina = ?, semestre_materia = ?, ano_disciplina = ?, presenca_aberta = ?, id_professor = ?, id_curso = ? where id_disciplina = ?", [d.nome_disciplina,d.carga_horaria_disciplina,d.presenca_aberta,d.semestre_materia,d.ano_disciplina,d.presenca_aberta,d.id_professor,d.id_curso]);
 				res = sql.linhasAfetadas.toString();
 		});
 
