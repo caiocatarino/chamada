@@ -18,6 +18,10 @@
 					   <% } %>
 					  </select>
 				  </div>
+				  <div class="form-group">
+					<label for="nfc_carteiraAcesso">NFC</label>
+					<input id="nfc_carteiraAcesso" name="nfc_carteiraAcesso" maxlength="50" class="form-control upper" type="text" spellcheck="false" value="<%=(item ? item.nfc_carteiraAcesso : '') %>" />
+				</div>
 			</div>
 			<div class="panel-footer">
 				<input value="<%=(item ? 'Salvar Alterações' : 'Criar Carteira de Acesso') %>" class="btn btn-primary btn-lg btn-block" type="submit" />

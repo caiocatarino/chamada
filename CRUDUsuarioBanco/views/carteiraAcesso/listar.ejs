@@ -40,6 +40,7 @@
 		columns: [
 			{ title: "Validade", render: encode, data: "validade_carteiraAcesso" },
 			{ title: "Nome do Aluno", render: encode, data: "nome_aluno" },
+			{ title: "NFC", render: encode, data: "nfc_carteiraAcesso" },
 			{ title: "", "class": "col-min", searchable: false, orderable: false, data: "id_carteiraAcesso", render: function (v, type, row) { return "<a target=\"_blank\" title=\"Editar\" href=\"/carteiraAcesso/alterar?id_carteiraAcesso=" + v + "\" class=\"btn btn-outline btn-primary\"><i class=\"fa fa-nomargin fa-edit\"></i></a> <button title=\"Excluir\" type=\"button\" data-excluir=\"1\" class=\"btn btn-outline btn-danger\"><i class=\"fa fa-nomargin fa-times\"></i></button>"; } },
 		],
 		data: <%- lista %>
