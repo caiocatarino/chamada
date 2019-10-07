@@ -5,6 +5,7 @@ import converteData = require("../utils/converteData");
 export = class CarteiraAcesso {
 	public id_carteiraAcesso: number;
 	public validade_carteiraAcesso: string;
+	public nfc_carteiraAcesso: string;
 
 	public id_aluno:number;
 
@@ -42,7 +43,7 @@ export = class CarteiraAcesso {
 
 		await Sql.conectar(async (sql: Sql) => {
 			try {
-				await sql.query("insert into carteiraAcesso (validade_carteiraAcesso,id_aluno) values (?,?)", [c.validade_carteiraAcesso,c.id_aluno]);
+				await sql.query("insert into carteiraAcesso (validade_carteiraAcesso,id_aluno,nfc_carteiraAcesso) values (?,?,?)", [c.validade_carteiraAcesso,c.id_aluno,c.nfc_carteiraAcesso]);
 			} catch (e) {
 				if (e.code && e.code === "ER_DUP_ENTRY")
 					res = "A Carteira de Acesso \"" + c.id_carteiraAcesso + "\" já existe";
