@@ -23,7 +23,11 @@
 				</div>	
 				<div class="form-group">
 					<label for="presenca_aberta">Presença</label>
-					<input id="presenca_aberta" name="presenca_aberta" maxlength="50" class="form-control upper" type="number" spellcheck="false" value="<%=(item ? item.presenca_aberta : '') %>" />
+					<select id="presenca_aberta" name="presenca_aberta" class="form-control" size="1">
+						<option value="">SELECIONE...</option>
+						<option value="0" <%=((item && item.presenca_aberta === 0) ? 'selected="selected"' : '') %>>Presença Fechada</option>
+						<option value="1" <%=((item && item.presenca_aberta === 1) ? 'selected="selected"' : '') %>>Presença Aberta</option>
+					</select>
 				</div>
 				<div class="form-group">
 					<label for="id_professor">Professor</label>
