@@ -53,6 +53,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `mydb`.`carteiraAcesso` (
   `id_carteiraAcesso` INT(11) NOT NULL AUTO_INCREMENT,
   `validade_carteiraAcesso` DATE NOT NULL,
+  `nfc_carteiraAcesso` DATE NOT NULL,
   `id_aluno` INT(11) NOT NULL,
   PRIMARY KEY (`id_carteiraAcesso`),
   INDEX `fk_carteiraAcesso_aluno1_idx` (`id_aluno` ASC),
