@@ -56,7 +56,7 @@ export = class Disciplina {
 			return res;
 
 		await Sql.conectar(async (sql: Sql) => {
-				await sql.query("insert into disciplina (nome_disciplina,carga_horaria_disciplina,semestre_materia,ano_disciplina, presenca_aberta, id_professor,id_curso) values (?,?,?,?,?,?,?)", [d.nome_disciplina,d.carga_horaria_disciplina,d.semestre_materia,d.ano_disciplina,d.presenca_aberta,d.id_professor,d.id_curso]);
+				await sql.query("insert into disciplina (nome_disciplina,carga_horaria_disciplina,semestre_materia,ano_disciplina, id_professor,id_curso) values (?,?,?,?,?,?)", [d.nome_disciplina,d.carga_horaria_disciplina,d.semestre_materia,d.ano_disciplina,d.id_professor,d.id_curso]);
 		});
 
 		

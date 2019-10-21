@@ -8,6 +8,7 @@
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
     <NameOfLastUsedPublishProfile>Local</NameOfLastUsedPublishProfile>
     <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
+    <ToolsVersionPromptShown>3.0</ToolsVersionPromptShown>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -36,6 +37,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="public\css\admin-1.0.26.css" />
     <Content Include="public\imagens\loading-grey-t.gif" />
     <Content Include="public\imagens\logo-cabecalho.png" />
@@ -57,6 +59,12 @@
     <Content Include="public\lib\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="public\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="utils\jsonRes.ts" />
+    <Content Include="views\aluno\alterar.ejs" />
+    <Content Include="views\aluno\listar.ejs" />
+    <Content Include="views\carteiraAcesso\alterar.ejs" />
+    <Content Include="views\carteiraAcesso\listar.ejs" />
+    <Content Include="views\disciplina\alterar.ejs" />
+    <Content Include="views\disciplina\listar.ejs" />
     <Content Include="views\home\acesso.ejs" />
     <Content Include="views\home\index.ejs" />
     <Content Include="views\home\login.ejs" />
@@ -68,6 +76,10 @@
     <Content Include="views\layout.ejs" />
     <Content Include="views\curso\alterar.ejs" />
     <Content Include="views\curso\listar.ejs" />
+    <Content Include="views\presenca\alterar.ejs" />
+    <Content Include="views\presenca\listar.ejs" />
+    <Content Include="views\professor\alterar.ejs" />
+    <Content Include="views\professor\listar.ejs" />
     <Content Include="views\rodape.ejs" />
     <Content Include="views\shared\erro.ejs" />
     <Content Include="views\shared\nao-encontrado.ejs" />
@@ -76,6 +88,7 @@
     <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="infra\sql.ts" />
     <TypeScriptCompile Include="models\curso.ts" />
+    <TypeScriptCompile Include="models\disciplina.ts" />
     <TypeScriptCompile Include="models\usuario.ts" />
     <TypeScriptCompile Include="routes\api\curso.ts" />
     <TypeScriptCompile Include="routes\api\usuario.ts" />
@@ -92,6 +105,7 @@
     <Folder Include="public\lib\metis-menu\" />
     <Folder Include="public\lib\metis-menu\css\" />
     <Folder Include="public\lib\metis-menu\js\" />
+    <Folder Include="scripts_sql\" />
     <Folder Include="utils\" />
     <Folder Include="public\" />
     <Folder Include="public\css\" />
@@ -119,12 +133,18 @@
     <Folder Include="routes\" />
     <Folder Include="routes\api\" />
     <Folder Include="views\" />
+    <Folder Include="views\aluno\" />
+    <Folder Include="views\carteiraAcesso\" />
     <Folder Include="views\curso\" />
+    <Folder Include="views\disciplina\" />
     <Folder Include="views\home\" />
+    <Folder Include="views\presenca\" />
+    <Folder Include="views\professor\" />
     <Folder Include="views\shared\" />
     <Folder Include="views\usuario\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="models\disciplina.js" />
     <Compile Include="public\js\admin-1.0.6.js" />
     <Compile Include="public\js\main.js" />
     <Compile Include="public\lib\bootstrap-datepicker\js\bootstrap-datepicker-1.0.0.min.js" />
