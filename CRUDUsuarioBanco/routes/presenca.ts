@@ -39,4 +39,13 @@ router.get("/listar", wrap(async (req: express.Request, res: express.Response) =
 	}
 }));
 
+router.get("/listarAlunos", wrap(async (req: express.Request, res: express.Response) => {
+	let u = await Usuario.cookie(req);
+	if (!u || !u.admin) {
+		res.redirect("/acesso");
+	} else {
+		res.render("presenca/listarAlunos", { titulo: "Gerenciar Presenças", usuario: u, lista: JSON.stringify(await Presenca.listarAlunos(req.query["data"])) });
+	}
+}));
+
 export = router;

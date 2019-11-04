@@ -24,6 +24,18 @@ export = class Presenca {
 		return (lista || []);
 	}
 
+	public static async listarAlunos(data: string): Promise<Presenca[]> {
+		data = converteData(data);
+
+		let lista: Presenca[] = null;
+
+		await Sql.conectar(async (sql: Sql) => {
+			lista = await sql.query("select p.id_presenca, date_format(p.data,'%d/%m/%Y' ) data, a.id_aluno, a.nome_aluno, d.id_disciplina,d.nome_disciplina from presenca p, aluno a, disciplina d where p.id_aluno = a.id_aluno and p.id_disciplina = d.id_disciplina and p.data =  ?", [data]) as Presenca[];
+		});
+
+		return (lista || []);
+	}
+
 	public static async obter(id_presenca: number): Promise<Presenca> {
 		let lista: Presenca[] = null;
 

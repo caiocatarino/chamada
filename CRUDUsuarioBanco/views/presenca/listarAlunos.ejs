@@ -40,7 +40,7 @@
 		columns: [
 			{ title: "Data", render: encode, data: "data" },
 			{ title: "Nome da Disciplina", render: encode, data: "nome_disciplina" },
-			{ title: "", "class": "col-min", searchable: false, orderable: false, data: "id_presenca", render: function (v, type, row) { return "<a target=\"_blank\" title=\"Editar\" href=\"/presenca/listarAlunos?data=" + row.data + "\" class=\"btn btn-outline btn-primary\"><i class=\"fa fa-nomargin fa-edit\"></i></a> <button title=\"Excluir\" type=\"button\" data-excluir=\"1\" class=\"btn btn-outline btn-danger\"><i class=\"fa fa-nomargin fa-times\"></i></button>"; } },
+			{ title: "", "class": "col-min", searchable: false, orderable: false, data: "id_presenca", render: function (v, type, row) { return "<a target=\"_blank\" title=\"Editar\" href=\"/presenca/alterar?id_presenca=" + row.id_presenca + "\" class=\"btn btn-outline btn-primary\"><i class=\"fa fa-nomargin fa-edit\"></i></a> <button title=\"Excluir\" type=\"button\" data-excluir=\"1\" class=\"btn btn-outline btn-danger\"><i class=\"fa fa-nomargin fa-times\"></i></button>"; } },
 		],
 		data: <%- lista %>
 	});

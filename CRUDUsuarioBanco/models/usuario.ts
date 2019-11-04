@@ -14,7 +14,8 @@ export = class Usuario {
 	private static readonly HashId = 0x16e7fef4;
 
 	public static readonly TipoAdmin = 0;
-	public static readonly TipoComum = 1;
+	public static readonly TipoProfessor = 1;
+	public static readonly TipoAluno = 2;
 
 	public id: number;
 	public login: string;
@@ -187,7 +188,7 @@ export = class Usuario {
 		if (u.nome.length < 3 || u.nome.length > 100)
 			return "Nome inválido";
 
-		if (u.tipo !== Usuario.TipoAdmin && u.tipo !== Usuario.TipoComum)
+		if (u.tipo !== Usuario.TipoAdmin && u.tipo !== Usuario.TipoProfessor && u.tipo !== Usuario.TipoAluno )
 			return "Tipo inválido";
 
 		return null;
@@ -197,7 +198,7 @@ export = class Usuario {
 		let lista: Usuario[] = null;
 
 		await Sql.conectar(async (sql: Sql) => {
-			lista = await sql.query("select id, login, nome, case tipo when 0 then 'ADMIN' else 'COMUM' end tipo from usuario order by login asc") as Usuario[];
+			lista = await sql.query("select id, login, nome, case tipo when 0 then 'ADMIN' when 1 then 'PROFESSOR' else 'ALUNO' end tipo from usuario order by login asc") as Usuario[];
 		});
 
 		return (lista || []);
