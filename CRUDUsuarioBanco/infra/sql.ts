@@ -7,7 +7,7 @@ export = class Sql {
 		host: "localhost",
 		port: 3306,
 		user: "root",
-		password: "Caiocaio230800",
+		password: "root",
 		database: "mydb"
 	});
 
