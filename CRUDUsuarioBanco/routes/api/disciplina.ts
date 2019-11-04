@@ -30,7 +30,7 @@ router.post("/alterar", wrap(async (req: express.Request, res: express.Response)
 	let d = req.body as Disciplina;
 	if (d)
 		d.id_disciplina = parseInt(req.body.id_disciplina);
-	jsonRes(res, 400, (d && !isNaN(d.id_curso)) ? await Disciplina.alterar(d) : "Dados inválidos!");
+	jsonRes(res, 400, (d && !isNaN(d.id_disciplina)) ? await Disciplina.alterar(d) : "Dados inválidos!");
 }));
 
 router.get("/excluir", wrap(async (req: express.Request, res: express.Response) => {

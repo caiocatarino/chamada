@@ -62,7 +62,7 @@ export = class CarteiraAcesso {
 
 		await Sql.conectar(async (sql: Sql) => {
 			try {
-				await sql.query("update carteiraAcesso set validade_carteiraAcesso = ?, id_aluno = ? where id_carteiraAcesso = " + c.id_carteiraAcesso, [c.validade_carteiraAcesso,c.id_aluno]);
+				await sql.query("update carteiraAcesso set validade_carteiraAcesso = ?, nfc_carteiraAcesso = ?, id_aluno = ? where id_carteiraAcesso = " + c.id_carteiraAcesso, [c.validade_carteiraAcesso,c.id_aluno,c.nfc_carteiraAcesso]);
 				res = sql.linhasAfetadas.toString();
 			} catch (e) {
 				if (e.code && e.code === "ER_DUP_ENTRY")
