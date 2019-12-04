@@ -18,11 +18,26 @@ export = class Presenca {
 		let lista: Presenca[] = null;
 
 		await Sql.conectar(async (sql: Sql) => {
-			lista = await sql.query("select p.id_presenca, date_format(p.data,'%d/%m/%Y' ) data, a.id_aluno, a.nome_aluno, d.id_disciplina,d.nome_disciplina from presenca p, aluno a, disciplina d where p.id_aluno = a.id_aluno and p.id_disciplina = d.id_disciplina ") as Presenca[];
+			lista = await sql.query("select  date_format(p.data,'%d/%m/%Y' ) data, "+
+			" d.id_disciplina,count(*) total, "+
+			" d.nome_disciplina from presenca p, aluno a, disciplina d where p.id_aluno = a.id_aluno and p.id_disciplina = d.id_disciplina group by date_format(p.data,'%d/%m/%Y' ), d.id_disciplina, d.nome_disciplina;") as Presenca[];
 		});
 
 		return (lista || []);
 	}
+
+	/*public static async cargaHoraria(): Promise<Presenca[]> {
+		let lista: Presenca[] = null;
+
+		await Sql.conectar(async (sql: Sql) => {
+			lista = await sql.query("select  date_format(p.data,'%d/%m/%Y' ) data, "+
+			" d.id_disciplina,count(*) total, "+
+			" d.nome_disciplina from presenca p, aluno a, disciplina d where p.id_aluno = a.id_aluno and p.id_disciplina = d.id_disciplina group by date_format(p.data,'%d/%m/%Y' ), d.id_disciplina, d.nome_disciplina;") as Presenca[];
+		});
+
+		return (lista || []);
+	}*/
+
 
 	public static async listarAlunos(data: string): Promise<Presenca[]> {
 		data = converteData(data);
